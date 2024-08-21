@@ -809,7 +809,7 @@ __metadata:
     graphql-upload: "npm:^16.0.2"
     html-validate: "npm:^8.20.1"
     ioredis: "npm:^5.3.2"
-    keyv: "npm:^4.5.4"
+    keyv: "npm:^5.0.0"
     lodash-es: "npm:^4.17.21"
     mixpanel: "npm:^0.18.0"
     mustache: "npm:^4.2.0"
@@ -6709,6 +6709,15 @@ __metadata:
   dependencies:
     ioredis: "npm:^5.4.1"
   checksum: 10/7243abf11ab698b3f97f0c86bd56f1ec79a26b0e422b23c026d8dd2ad9f629852eaf683354c863508d142b934c73b985cd01f62583b07dfcd2b6842b52b853c3
+  languageName: node
+  linkType: hard
+
+"@keyv/serialize@npm:*":
+  version: 1.0.0
+  resolution: "@keyv/serialize@npm:1.0.0"
+  dependencies:
+    buffer: "npm:^6.0.3"
+  checksum: 10/51aecccfba6be635a4912c8d8890b14f7dad04c84ef9cb8117025fca803e429f068045338645921598f8d4392bf0872bfe2cfc63b5608c50875207b2d53df801
   languageName: node
   linkType: hard
 
@@ -25159,7 +25168,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"keyv@npm:*, keyv@npm:^4.0.0, keyv@npm:^4.5.3, keyv@npm:^4.5.4":
+"keyv@npm:*, keyv@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "keyv@npm:5.0.0"
+  dependencies:
+    "@keyv/serialize": "npm:*"
+  checksum: 10/bd3fd06531f37bf990a44b15c02e69d67e850e0e1da4bd327119aa3e9e66eb64744b59014c0e7027567c61d2c1fba7e2f7a0ac012d4b50d246f717089b273cb9
+  languageName: node
+  linkType: hard
+
+"keyv@npm:^4.0.0, keyv@npm:^4.5.3":
   version: 4.5.4
   resolution: "keyv@npm:4.5.4"
   dependencies:
