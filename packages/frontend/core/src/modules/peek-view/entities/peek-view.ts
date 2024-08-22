@@ -26,8 +26,9 @@ export type PeekViewTarget =
 export interface DocPeekViewInfo {
   type: 'doc';
   docId: string;
-  blockId?: string;
   mode?: DocMode;
+  blockId?: string;
+  elementId?: string;
   xywh?: `[${number},${number},${number},${number}]`;
 }
 
@@ -58,15 +59,16 @@ export type ActivePeekView = {
     | AIChatBlockPeekViewInfo;
 };
 
-const EMBED_DOC_FLAVOURS = [
-  'affine:embed-linked-doc',
-  'affine:embed-synced-doc',
-];
-
-const isEmbedDocModel = (
+const isEmbedLinkedDocModel = (
   blockModel: BlockModel
-): blockModel is EmbedSyncedDocModel | EmbedLinkedDocModel => {
-  return EMBED_DOC_FLAVOURS.includes(blockModel.flavour);
+): blockModel is EmbedLinkedDocModel => {
+  return blockModel.flavour === 'affine:embed-linked-doc';
+};
+
+const isEmbedSyncedDocModel = (
+  blockModel: BlockModel
+): blockModel is EmbedSyncedDocModel => {
+  return blockModel.flavour === 'affine:embed-synced-doc';
 };
 
 const isImageBlockModel = (
@@ -99,6 +101,25 @@ function resolvePeekInfoFromPeekTarget(
   }
 
   if (peekTarget instanceof AffineReference) {
+    const params = peekTarget.linkedNodeInfo;
+    if (params) {
+      const { pageId: docId, mode } = params;
+      const info: DocPeekViewInfo = {
+        type: 'doc',
+        docId,
+        mode,
+      };
+      const blockId = params.blockId?.[0];
+      const elementId = params.elementId?.[0];
+      if (blockId) {
+        info.blockId = blockId;
+      }
+      if (elementId) {
+        info.elementId = elementId;
+      }
+      return info;
+    }
+
     if (peekTarget.refMeta) {
       return {
         type: 'doc',
@@ -107,7 +128,22 @@ function resolvePeekInfoFromPeekTarget(
     }
   } else if ('model' in peekTarget) {
     const blockModel = peekTarget.model;
-    if (isEmbedDocModel(blockModel)) {
+    if (isEmbedLinkedDocModel(blockModel)) {
+      const info: DocPeekViewInfo = {
+        type: 'doc',
+        docId: blockModel.pageId,
+        mode: blockModel.mode,
+      };
+      const blockId = blockModel.blockId?.[0];
+      const elementId = blockModel.elementId?.[0];
+      if (blockId) {
+        info.blockId = blockId;
+      }
+      if (elementId) {
+        info.elementId = elementId;
+      }
+      return info;
+    } else if (isEmbedSyncedDocModel(blockModel)) {
       return {
         type: 'doc',
         docId: blockModel.pageId,
@@ -141,6 +177,7 @@ function resolvePeekInfoFromPeekTarget(
     }
   } else if (peekTarget instanceof HTMLAnchorElement) {
     const maybeDoc = resolveLinkToDoc(peekTarget.href);
+    // TODO(@fundon): need to set mode
     if (maybeDoc) {
       return {
         type: 'doc',
