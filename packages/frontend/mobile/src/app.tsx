@@ -1,5 +1,6 @@
 import '@affine/component/theme/global.css';
 import '@affine/component/theme/theme.css';
+import './styles/mobile.css';
 
 import { NotificationCenter } from '@affine/component';
 import { AffineContext } from '@affine/component/context';
