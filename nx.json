@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "npmScope": "toeverything",
-  "nxCloudAccessToken": "MzUwNTU4YWItZGFhYi00YjE2LWIxODAtODk4NmIwYjMwYzZkfHJlYWQ=",
+  "nxCloudAccessToken": "ZjE1ZGFhMDctOTVhOS00Y2M4LWIyM2ItMWIwZjQ2YzM5OGRkfHJlYWQtd3JpdGU=",
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx-cloud",
@@ -11,9 +11,7 @@
       }
     }
   },
-  "affected": {
-    "defaultBase": "canary"
-  },
+  "affected": { "defaultBase": "canary" },
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "sharedGlobals": [
@@ -38,75 +36,35 @@
       "inputs": [
         "{workspaceRoot}/packages/frontend/infra/**/*",
         "{workspaceRoot}/packages/frontend/sdk/**/*",
-        {
-          "runtime": "node -v"
-        },
-        {
-          "env": "BUILD_TYPE"
-        },
-        {
-          "env": "PERFSEE_TOKEN"
-        },
-        {
-          "env": "SENTRY_ORG"
-        },
-        {
-          "env": "SENTRY_PROJECT"
-        },
-        {
-          "env": "SENTRY_AUTH_TOKEN"
-        },
-        {
-          "env": "SENTRY_DSN"
-        },
-        {
-          "env": "DISTRIBUTION"
-        },
-        {
-          "env": "COVERAGE"
-        }
+        { "runtime": "node -v" },
+        { "env": "BUILD_TYPE" },
+        { "env": "PERFSEE_TOKEN" },
+        { "env": "SENTRY_ORG" },
+        { "env": "SENTRY_PROJECT" },
+        { "env": "SENTRY_AUTH_TOKEN" },
+        { "env": "SENTRY_DSN" },
+        { "env": "DISTRIBUTION" },
+        { "env": "COVERAGE" }
       ]
     },
     "e2e": {
       "outputs": ["{workspaceRoot}/.nyc_output", "{projectRoot}/test-results"],
       "inputs": [
-        {
-          "runtime": "node -v"
-        },
-        {
-          "runtime": "yarn playwright --version"
-        }
+        { "runtime": "node -v" },
+        { "runtime": "yarn playwright --version" }
       ]
     },
     "test": {
       "outputs": ["{workspaceRoot}/.nyc_output"],
-      "inputs": [
-        {
-          "env": "ENABLE_PRELOADING"
-        },
-        {
-          "env": "COVERAGE"
-        }
-      ]
+      "inputs": [{ "env": "ENABLE_PRELOADING" }, { "env": "COVERAGE" }]
     },
     "test:ui": {
       "outputs": ["{workspaceRoot}/.nyc_output"],
-      "inputs": [
-        {
-          "env": "ENABLE_PRELOADING"
-        },
-        {
-          "env": "COVERAGE"
-        }
-      ]
+      "inputs": [{ "env": "ENABLE_PRELOADING" }, { "env": "COVERAGE" }]
     },
     "test:coverage": {
       "outputs": ["{workspaceRoot}/.nyc_output"],
-      "inputs": [
-        {
-          "env": "ENABLE_PRELOADING"
-        }
-      ]
+      "inputs": [{ "env": "ENABLE_PRELOADING" }]
     }
   }
 }
